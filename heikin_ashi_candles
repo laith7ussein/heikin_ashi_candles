@@ -1,0 +1,32 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © layth7ussein
+
+//@version=5
+
+library("heikin_ashi_candles")
+
+export _close() =>
+    1.01*(open+close+high+low)/4.01
+
+export _open() =>
+    (open[1]+close[1])/2
+    
+export _high() =>
+    math.max(high, _close(), _open())
+    
+export _low() =>
+    math.min(low, _close(), _open())
+
+export _ohlc4() =>
+    (_close()+_open()+_high()+_low())/4
+
+export _hlcc4() =>
+    (2*_close()+_high()+_low())/4
+
+export _hlc3() =>
+    (_close()+_high()+_low())/3
+
+export _hl2() =>
+    (_high()+_low())/2
+
+plotcandle(_open(), _high(), _low(), _close(), color= _open()>_close() ? color.red : color.green)
